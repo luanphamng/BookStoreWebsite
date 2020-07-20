@@ -1,23 +1,73 @@
 package com.bookstore.dao;
 
-import javax.persistence.EntityManager;
+import java.util.List;
 
-public class JpaDAO<T> {
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+public class JpaDAO<E> {
 	protected EntityManager entityManager;
+
+	private static EntityManagerFactory entityManagerFactory;
+
+	static {
+		entityManagerFactory = Persistence.createEntityManagerFactory("BookStoreWebsite");
+	}
+
+	public JpaDAO() {
+	}
 
 	public JpaDAO(EntityManager entityManager) {
 		super();
 		this.entityManager = entityManager;
 	}
 
-	public T create(T t) {
+	public E create(E entity) {
 		entityManager.getTransaction().begin();
-		entityManager.persist(t);
+		entityManager.persist(entity);
 		entityManager.flush();
-		entityManager.refresh(t);
+		entityManager.refresh(entity);
 		entityManager.getTransaction().commit();
 
-		return t;
+		return entity;
 	}
 
+	public E update(E entity) {
+		entityManager.getTransaction().begin();
+		entity = entityManager.merge(entity);
+		entityManager.getTransaction().commit();
+		return entity;
+	}
+
+	public E find(Class<E> type, Object id) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		E entity = entityManager.find(type, id);
+
+		if (entity != null) {
+			entityManager.refresh(entity);
+		}
+		entityManager.close();
+
+		return entity;
+	}
+	
+	public List<E> findWithNamedQuery(String queryName){
+		Query query = entityManager.createNamedQuery(queryName);
+		return query.getResultList(); 
+	}
+	
+	public long countAllRows(String queryName) {
+		Query query = entityManager.createNamedQuery(queryName);
+		long count = (long)query.getSingleResult();
+		System.out.println("count = " + count);
+		return count;
+		
+	}
+	
+	public void close() {
+		entityManager.close();
+		entityManagerFactory.close();
+	}
 }
