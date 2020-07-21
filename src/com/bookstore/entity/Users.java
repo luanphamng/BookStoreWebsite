@@ -11,12 +11,24 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-@NamedQueries({
-	@NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u ORDER by u.fullName"),
-	@NamedQuery(name = "Users.countAll", query = "SELECT Count(*) FROM Users u"),
+@NamedQueries({ @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u ORDER by u.fullName"),
+		@NamedQuery(name = "Users.countAll", query = "SELECT Count(*) FROM Users u"),
+		@NamedQuery(name = "Users.countByEmail", query = "SELECT u FROM Users u WHERE u.email=:email")
 })
 
 public class Users {
+
+	public Users(String email, String password, String fullName) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.fullName = fullName;
+	}
+
+	public Users() {
+		super();
+	}
+
 	private Integer userId;
 
 	@Column(name = "user_id")

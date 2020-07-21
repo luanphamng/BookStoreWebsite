@@ -58,6 +58,11 @@ public class JpaDAO<E> {
 		return query.getResultList(); 
 	}
 	
+	public List<E> findWithNameQuery(String queryEmail, String email) {
+		Query query = entityManager.createNamedQuery(queryEmail).setParameter("email", email);
+		return query.getResultList();
+	}
+	
 	public long countAllRows(String queryName) {
 		Query query = entityManager.createNamedQuery(queryName);
 		long count = (long)query.getSingleResult();
