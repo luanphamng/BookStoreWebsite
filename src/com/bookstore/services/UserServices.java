@@ -55,25 +55,70 @@ public class UserServices {
 		dispatcher.forward(request, response);
 	}
 
-	public void createUser(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void createUser() throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String fullName = request.getParameter("fullName");
 		String password = request.getParameter("password");
-		
+
 		if (userDAO.checkEmailExist(email)) {
 			String message = "Could not create user because this email is already taken!";
 			request.setAttribute("message", message);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
 			requestDispatcher.forward(request, response);
-		}
-		else {
+		} else {
 			response.getWriter().println("Email: " + email);
 			response.getWriter().println("FullName: " + fullName);
 			response.getWriter().println("Password: " + password);
-			
+
 			Users newUser = new Users(email, fullName, password);
-			userDAO.create(newUser);			
+			userDAO.create(newUser);
 		}
+	}
+
+	public void editUser() throws IOException, ServletException {
+
+		int userID = (Integer.parseInt(request.getParameter("id")));
+		Users user = new Users();
+		user = userDAO.findUser(userID);
+		if(user != null) {
+			request.setAttribute("user", user);
+			String editUserPage = "user_form.jsp";
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(editUserPage);
+			requestDispatcher.forward(request, response);
+		}
+		else {
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+			request.setAttribute("message", "Can not load this user for delete");
+			requestDispatcher.forward(request, response);
+		}
+	}
+
+	public void updateUser() throws IOException, ServletException {
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		String email = request.getParameter("email");
+		String fullName = request.getParameter("fullName");
+
+		Users userById = userDAO.get(userId);
+
+		if ((userById != null) && (email != userById.getEmail())) {
+			if(!userDAO.checkEmailExist(email)) {
+				userById.setEmail(email);
+				userById.setFullName(fullName);
+				userDAO.update(userById);
+				listUsers("Update user successfully!");
+				return;					
+			}
+			else {
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+				request.setAttribute("message", "Can not complete this action, email is taken!");
+				requestDispatcher.forward(request, response);
+			}
+
+		} else {
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+			request.setAttribute("message", "Can not complete this action");
+			requestDispatcher.forward(request, response);
+		}
+
 	}
 }
