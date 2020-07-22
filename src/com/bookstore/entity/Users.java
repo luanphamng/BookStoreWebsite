@@ -13,7 +13,8 @@ import javax.persistence.Table;
 @Table(name = "users")
 @NamedQueries({ @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u ORDER by u.fullName"),
 		@NamedQuery(name = "Users.countAll", query = "SELECT Count(*) FROM Users u"),
-		@NamedQuery(name = "Users.countByEmail", query = "SELECT u FROM Users u WHERE u.email=:email")
+		@NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email=:email"),
+		@NamedQuery(name = "Users.findByID", query = "SELECT u from Users u WHERE u.userId=:id")
 })
 
 public class Users {
@@ -25,6 +26,13 @@ public class Users {
 		this.fullName = fullName;
 	}
 
+	public Users(int id, String email, String fullName) {
+		super();
+		this.userId = id;
+		this.email = email;
+		this.fullName = fullName;
+	}
+	
 	public Users() {
 		super();
 	}
