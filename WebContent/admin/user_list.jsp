@@ -21,8 +21,8 @@
 	<h3><a href="user_form.jsp">Create new user</a></h3>
 		<table border="1">
 			<tr>
-				<th>ID</th>
-				<th>Name</th>
+				<th>No.</th>
+				<th>Id</th>
 				<th>Email</th>
 				<th>FullName</th>
 				<th>Actions</th>
@@ -34,7 +34,7 @@
 					<td>${users.email}</td>
 					<td>${users.fullName}</td>
 					<td>
-						<a href="">Edit</a> |
+						<a href="edit_user?id=${users.userId}">Edit</a> |
 						<a href="">Delete</a>
 					</td>
 				</tr>
