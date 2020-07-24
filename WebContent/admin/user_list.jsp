@@ -46,10 +46,6 @@
 </body>
 <script>
 	function confirmDelete(userId){
-		if(userId == 1){
-			alert("You can not delete this defaut admin account");
-			return;
-		}
 		if(confirm('Are you sure you want to delete the user with ID ' + userId + '?')){
 			window.location = 'delete_user?id=' + userId;
 		}
