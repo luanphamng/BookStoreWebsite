@@ -27,15 +27,15 @@
 				<th>FullName</th>
 				<th>Actions</th>
 			</tr>
-			<c:forEach var="users" items="${listUsers}" varStatus="status">
+			<c:forEach var="user" items="${listUsers}" varStatus="status">
 				<tr>
 					<td>${status.index + 1}</td>
-					<td>${users.userId}</td>
-					<td>${users.email}</td>
-					<td>${users.fullName}</td>
+					<td>${user.userId}</td>
+					<td>${user.email}</td>
+					<td>${user.fullName}</td>
 					<td>
-						<a href="edit_user?id=${users.userId}">Edit</a> |
-						<a href="">Delete</a>
+						<a href="edit_user?id=${user.userId}">Edit</a> |
+						<a href="javascript:confirmDelete(${user.userId})">Delete</a>
 					</td>
 				</tr>
 			
@@ -44,4 +44,15 @@
 	</div>
 	<jsp:directive.include file="footer.jsp" />
 </body>
+<script>
+	function confirmDelete(userId){
+		if(userId == 1){
+			alert("You can not delete this defaut admin account");
+			return;
+		}
+		if(confirm('Are you sure you want to delete the user with ID ' + userId + '?')){
+			window.location = 'delete_user?id=' + userId;
+		}
+	}
+</script>
 </html>
