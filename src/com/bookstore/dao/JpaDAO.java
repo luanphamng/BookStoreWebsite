@@ -71,6 +71,12 @@ public class JpaDAO<E> {
 		
 	}
 	
+	public void destroy(Object id) {
+		entityManager.getTransaction().begin();
+		entityManager.remove(entityManager.merge(id));
+		entityManager.getTransaction().commit();
+	}
+	
 	public void close() {
 		entityManager.close();
 		entityManagerFactory.close();
