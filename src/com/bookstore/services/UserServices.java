@@ -116,9 +116,22 @@ public class UserServices {
 
 		} else {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
-			request.setAttribute("message", "Can not complete this action");
+			request.setAttribute("message", "Can not update, please check correct user or change other email");
 			requestDispatcher.forward(request, response);
 		}
-
+	}
+	
+	public void deleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int userId = Integer.parseInt(request.getParameter("id"));
+		Users userWillBeDeleted = userDAO.get(userId);
+		if(userWillBeDeleted != null) {
+			userDAO.delete(userWillBeDeleted.getUserId());
+			listUsers("Delete user successfull");			
+		}
+		else {
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+			request.setAttribute("message", "User can not be found!");
+			requestDispatcher.forward(request, response);
+		}
 	}
 }
