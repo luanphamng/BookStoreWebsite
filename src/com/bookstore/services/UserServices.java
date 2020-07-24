@@ -123,6 +123,11 @@ public class UserServices {
 	
 	public void deleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userId = Integer.parseInt(request.getParameter("id"));
+		// Don't allow to delete default admin
+		if(userId == 1) {
+			listUsers("Can not delete admin account");
+			return;
+		}
 		Users userWillBeDeleted = userDAO.get(userId);
 		if(userWillBeDeleted != null) {
 			userDAO.delete(userWillBeDeleted.getUserId());
