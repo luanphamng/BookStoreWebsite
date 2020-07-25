@@ -1,9 +1,9 @@
 <div align="center">
 	<div>
-		<img src="../images/BookstoreLogo.png">
+		<img src="images/BookstoreLogo.png">
 	</div>
 	
-	<div>
+	<div align="center">
 		<input type="text" name="keyword" size="50"/>
 		<input type="button" value="Search">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
