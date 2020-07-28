@@ -5,14 +5,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="../css/style.css">
 <title>Category List | Online Books Store</title>
 </head>
 <body>
 	<jsp:directive.include file="header.jsp" />
+	<h1 align="center" class="pageheading">Categories Management</h1>
 	<c:if test="${message ne null}">
 		<h3 align="center">${message}</h3>
 	</c:if>
-	
+	<h3 align="center"><a href="category_form.jsp">Create new category</a></h3>
 	<div align="center">
 		<table border="1">
 			<tr>

@@ -1,17 +1,32 @@
 <div align="center">
 	<img src="../images/BookstoreAdminLogo.png">
 	<div>
-		Welcome, Admin | <a href="logout">Logout</a>
-		<br/>
+		Welcome, Admin | <a href="logout">Logout</a> <br/>
 	</div>
-	<div>
-	<b>
-		<a href="list_users">Users</a> |
-		<a href="list_category">Categories</a> |
-		<a href="books">Books</a> |
-		<a href="customers">Customers</a> |
-		<a href="reviews">Reviews</a>
-		<a href="orders">Orders</a>
-	</b>
+	<div id="headermenu">
+			<div>
+				<a href="list_users"> <img alt="" src="../images/users.png"><br/>
+					Users
+				</a>
+			</div>
+			<div>
+				<a href="list_category"><img alt="" src="../images/category.png"><br/>
+					Categories</a>
+			</div>
+			<div>
+				<a href="books"><img alt="" src="../images/bookstack.png"><br/>
+					Books</a>
+			</div>
+			<div>
+				<a href="customers"><img alt="" src="../images/customer.png"><br/>
+					Customers</a>
+			</div>
+			<div>
+				<a href="reviews"><img alt="" src="../images/review.png"><br/>
+					Reviews</a>
+			</div>
+			<div>
+				<a href="orders"><img alt="" src="../images/order.png"><br/>Orders</a>
+			</div>
 	</div>
 </div>
