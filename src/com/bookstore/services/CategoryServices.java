@@ -47,7 +47,7 @@ public class CategoryServices {
 		String name = request.getParameter("name"); 
 		Category categoryNew = new Category(name);
 		categoryDAO.create(categoryNew);
-		listCategory("User was created successfull!");
+		listCategory("Category was created successfull!");
 	}
 	
 	public void editCategory() throws ServletException, IOException{

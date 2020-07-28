@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="../css/style.css">
 <title>User List | Evergreen Books Store</title>
 </head>
 <body>
@@ -12,7 +13,7 @@
 	<div align="center">	
 	<c:if test="${message != null}">
 		<div align="center">
-			<p><i>${message}</i></p>
+			<p class="message"><i>${message}</i></p>
 		</div>
 	</c:if>
 	
