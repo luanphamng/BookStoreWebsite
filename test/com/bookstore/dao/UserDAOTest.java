@@ -93,13 +93,20 @@ public class UserDAOTest {
 		assertTrue(listUsers.size() > 0);
 	}
 	
-	@Test
-	public void testCount() {
-		long count = userDAO.count();
-		System.out.println("Count all Users = " + count);
-		assertEquals(count, 11);
-	}
+//	@Test
+//	public void testCount() {
+//		long count = userDAO.count();
+//		System.out.println("Count all Users = " + count);
+//		assertEquals(count, 11);
+//	}
 	
+	@Test
+	public void testCheckLogin() {
+		String email = "luan.sys@gmail.com";
+		String password = "mysecret";
+		
+		assertTrue(userDAO.checkLogin(email, password));
+	}
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		userDAO.close();

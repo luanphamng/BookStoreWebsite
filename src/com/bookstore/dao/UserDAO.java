@@ -1,7 +1,10 @@
 package com.bookstore.dao;
 
 import com.bookstore.entity.Users;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 
@@ -18,6 +21,23 @@ public class UserDAO extends JpaDAO<Users> implements GenericDAO<Users> {
 		return super.create(user);
 	}
 	
+	public boolean checkEmailExist(String email) {
+		List<Users> userSameEmail = super.findWithNameQuery("Users.findByEmail", email);
+		return (userSameEmail.size() != 0);
+	}
+	
+	public Users findUser(int id) {
+		return super.find(Users.class, id);
+	}
+	
+	public boolean checkLogin(String email, String password) {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("email", email);
+		parameters.put("password", password);
+		List<Users> usersList =  findWithNameQuery("Users.checkLogin", parameters);
+		return (usersList.size() == 1);
+	}
+	
 	@Override
 	public Users update(Users t) {
 		return super.update(t);
@@ -25,10 +45,11 @@ public class UserDAO extends JpaDAO<Users> implements GenericDAO<Users> {
 
 	@Override
 	public Users delete(Object id) {
-		// TODO Auto-generated method stub
+		Users uDelete = super.find(Users.class, id);
+		super.destroy(uDelete);
 		return null;
 	}
-
+	
 	@Override
 	public List<Users> listAll() {	
 		return super.findWithNamedQuery("Users.findAll");
@@ -43,5 +64,4 @@ public class UserDAO extends JpaDAO<Users> implements GenericDAO<Users> {
 	public Users get(Object id) {
 		return super.find(Users.class, id);
 	}
-	
 }
