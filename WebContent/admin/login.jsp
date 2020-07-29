@@ -13,6 +13,9 @@
 	<div align="center">
 		<h1>Book Store Administration</h1>
 		<h4>Admin login</h4>
+		<c:if test="${message ne null}">
+			<h3 class="error" align="center">${message}</h3>
+		</c:if>
 		<form id=loginForm action="login" method="post">
 			<table class="form">
 				<tr>
@@ -25,7 +28,7 @@
 						id="password"></td>
 				</tr>
 				<tr>
-					<td colspan="2">
+					<td colspan="2" align="center">
 						<button type="submit">Login</button>
 					</td>
 				</tr>
