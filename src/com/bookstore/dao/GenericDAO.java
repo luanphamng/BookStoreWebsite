@@ -10,7 +10,7 @@ public interface GenericDAO <E>{
 	
 	public E get(Object id);
 	
-	public E delete(Object id);
+	public void delete(Object id);
 	
 	public List<E> listAll();
 	

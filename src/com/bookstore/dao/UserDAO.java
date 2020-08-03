@@ -16,7 +16,7 @@ public class UserDAO extends JpaDAO<Users> implements GenericDAO<Users> {
 	}
 
 	public UserDAO(EntityManager entityManager) {
-		super(entityManager);
+		super();
 	}
 
 	public Users create(Users user) {
@@ -57,10 +57,9 @@ public class UserDAO extends JpaDAO<Users> implements GenericDAO<Users> {
 	}
 
 	@Override
-	public Users delete(Object id) {
+	public void delete(Object id) {
 		Users uDelete = super.find(Users.class, id);
 		super.destroy(uDelete);
-		return null;
 	}
 
 	@Override
