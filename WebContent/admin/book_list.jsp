@@ -53,7 +53,7 @@
 					</td>
 					<td>
 						<a href="edit_book?id=${book.bookId}">Edit</a> |
-						<a href="javascript:void(0);" class="deleteLink" id="${book.bookId}">Delete</a>
+						<a href="javascript:confirmDelete(${book.bookId})" class="deleteLink" id="${book.bookId}">Delete</a>
 					</td>
 				</tr>
 			
@@ -66,7 +66,7 @@
 $(document).ready(function(){
 	$(".deleteLink").each(function(){
 		$(this).on("click", function(){
-			userId = $(this).attr("id");
+			bookId = $(this).attr("id");
 			if(confirm("Are you sure you want to delete the book with ID" + bookId + '?')) {
 				window.location = 'delete_book?id=' + bookId;
 			}
