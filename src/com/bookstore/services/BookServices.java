@@ -24,7 +24,6 @@ import com.bookstore.entity.Book;
 import com.bookstore.entity.Category;
 
 public class BookServices {
-
 	private BookDAO bookDAO;
 	private CategoryDAO categoryDAO;
 	private EntityManagerFactory entityManagerFactory;
@@ -59,7 +58,6 @@ public class BookServices {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("book_list.jsp");
 		requestDispatcher.forward(request, response);
 	}
-
 	public void newBookForm() throws ServletException, IOException {
 		String page = "book_form.jsp";
 		List<Category> listCategory = categoryDAO.listAll();
@@ -89,7 +87,6 @@ public class BookServices {
 			e.printStackTrace();
 			throw new ServletException("Error parsing publish date");
 		}
-
 		b.setCategory(category);
 		b.setTitle(title);
 		b.setAuthor(author);
