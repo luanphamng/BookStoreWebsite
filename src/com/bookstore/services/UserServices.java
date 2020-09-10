@@ -1,8 +1,6 @@
 package com.bookstore.services;
 
 import java.io.IOException;
-import java.net.HttpRetryException;
-import java.rmi.ServerException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,7 +10,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Dispatch;
 
 import com.bookstore.dao.UserDAO;
 import com.bookstore.entity.Users;
@@ -80,13 +77,12 @@ public class UserServices {
 		int userID = (Integer.parseInt(request.getParameter("id")));
 		Users user = new Users();
 		user = userDAO.findUser(userID);
-		if(user != null) {
+		if (user != null) {
 			request.setAttribute("user", user);
 			String editUserPage = "user_form.jsp";
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(editUserPage);
 			requestDispatcher.forward(request, response);
-		}
-		else {
+		} else {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
 			request.setAttribute("message", "Can not load this user for delete");
 			requestDispatcher.forward(request, response);
@@ -101,14 +97,13 @@ public class UserServices {
 		Users userById = userDAO.get(userId);
 
 		if ((userById != null) && (email != userById.getEmail())) {
-			if(!userDAO.checkEmailExist(email)) {
+			if (!userDAO.checkEmailExist(email)) {
 				userById.setEmail(email);
 				userById.setFullName(fullName);
 				userDAO.update(userById);
 				listUsers("Update user successfully!");
-				return;					
-			}
-			else {
+				return;
+			} else {
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
 				request.setAttribute("message", "Can not complete this action, email is taken!");
 				requestDispatcher.forward(request, response);
@@ -120,32 +115,32 @@ public class UserServices {
 			requestDispatcher.forward(request, response);
 		}
 	}
-	
-	public void deleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	public void deleteUser(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int userId = Integer.parseInt(request.getParameter("id"));
 		// Don't allow to delete default admin
-		if(userId == 1) {
+		if (userId == 1) {
 			listUsers("Can not delete admin account");
 			return;
 		}
 		Users userWillBeDeleted = userDAO.get(userId);
-		if(userWillBeDeleted != null) {
+		if (userWillBeDeleted != null) {
 			userDAO.delete(userWillBeDeleted.getUserId());
-			listUsers("Delete user successfull");			
-		}
-		else {
+			listUsers("Delete user successfull");
+		} else {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
 			request.setAttribute("message", "User can not be found!");
 			requestDispatcher.forward(request, response);
 		}
 	}
-	
+
 	public void login() throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
+
 		boolean loginCheck = userDAO.checkLogin(email, password);
-		if(loginCheck) {
+		if (loginCheck) {
 			System.out.println("Usesr is authenticated.");
 			request.getSession().setAttribute("useremail", email);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/");

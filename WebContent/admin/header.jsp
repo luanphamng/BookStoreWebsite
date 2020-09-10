@@ -18,7 +18,7 @@
 					Books</a>
 			</div>
 			<div>
-				<a href="customers"><img alt="" src="../images/customer.png"><br/>
+				<a href="list_customer"><img alt="" src="../images/customer.png"><br/>
 					Customers</a>
 			</div>
 			<div>
